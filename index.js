@@ -37,7 +37,6 @@ app.get('/users', (req, res) => {
     });
 });
 
-const PORT = process.env.PORT || 8080;
-app.listen(PORT, '0.0.0.0', () => {
+app.listen(3000, '0.0.0.0', () => {
     console.log(`Servidor corriendo en puerto ${PORT} ✅`);
 });
