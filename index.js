@@ -15,7 +15,7 @@ db.connect((err) => {
         console.error('Error conectando a MySQL:', err);
         return;
     }
-    console.log('Conectado a MySQL ✅');
+    console.log('Conectado a MySQL');
 });
 
 app.get('/users', (req, res) => {
@@ -25,6 +25,8 @@ app.get('/users', (req, res) => {
     });
 });
 
-app.listen(3000, () => {
-    console.log('Servidor corriendo en puerto 3000 ✅');
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+    console.log(`Servidor corriendo en puerto ${PORT}`);
 });
