@@ -2,6 +2,11 @@ const express = require('express');
 const mysql = require('mysql2');
 const app = express();
 
+console.log('DB_HOST:', process.env.DB_HOST);
+console.log('DB_PORT:', process.env.DB_PORT);
+console.log('DB_DATABASE:', process.env.DB_DATABASE);
+console.log('DB_USER:', process.env.DB_USER);
+
 // Usar pool en vez de createConnection
 const pool = mysql.createPool({
     host: process.env.DB_HOST,
