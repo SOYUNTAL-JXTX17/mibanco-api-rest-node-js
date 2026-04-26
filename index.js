@@ -2,24 +2,8 @@ const express = require('express');
 const mysql = require('mysql2');
 const app = express();
 
-console.log('DB_HOST:', process.env.DB_HOST);
-console.log('DB_PORT:', process.env.DB_PORT);
-console.log('DB_DATABASE:', process.env.DB_DATABASE);
-console.log('DB_USER:', process.env.DB_USER);
+const pool = mysql.createPool(process.env.MYSQL_URL);
 
-// Usar pool en vez de createConnection
-const pool = mysql.createPool({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE,
-    port: process.env.DB_PORT,
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
-});
-
-// Verificar conexión
 pool.getConnection((err, connection) => {
     if (err) {
         console.error('Error conectando a MySQL:', err);
