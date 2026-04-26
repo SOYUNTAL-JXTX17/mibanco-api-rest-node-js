@@ -18,9 +18,16 @@ db.connect((err) => {
     console.log('Conectado a MySQL');
 });
 
+
 app.get('/users', (req, res) => {
     db.query('SELECT * FROM users', (err, results) => {
-        if (err) return res.status(500).json({ error: err });
+        if (err) {
+            console.error('Error en query:', err);
+            return res.status(500).json({ 
+                error: err.message,
+                code: err.code 
+            });
+        }
         res.json(results);
     });
 });
