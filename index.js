@@ -27,8 +27,38 @@ pool.getConnection((err, connection) => {
     connection.release();
 });
 
+app.get('/bankAccounts', (req, res) => {
+    pool.query('SELECT * FROM bankAccounts', (err, results) => {
+        if (err) {
+            console.error('Error en query:', err);
+            return res.status(500).json({ error: err.message });
+        }
+        res.json(results);
+    });
+});
+
 app.get('/users', (req, res) => {
     pool.query('SELECT * FROM users', (err, results) => {
+        if (err) {
+            console.error('Error en query:', err);
+            return res.status(500).json({ error: err.message });
+        }
+        res.json(results);
+    });
+});
+
+app.get('/transactions', (req, res) => {
+    pool.query('SELECT * FROM transactions', (err, results) => {
+        if (err) {
+            console.error('Error en query:', err);
+            return res.status(500).json({ error: err.message });
+        }
+        res.json(results);
+    });
+});
+
+app.get('/notifications', (req, res) => {
+    pool.query('SELECT * FROM notifications', (err, results) => {
         if (err) {
             console.error('Error en query:', err);
             return res.status(500).json({ error: err.message });
