@@ -61,7 +61,7 @@ app.get('/transactions', (req, res) => {
 });
 
 app.get('/credit_cards', (req, res) => {
-    pool.query('SELECT * FROM transactions', (err, results) => {
+    pool.query('SELECT * FROM credit_cards', (err, results) => {
         if (err) {
             console.error('Error en query:', err);
             return res.status(500).json({ error: err.message });
@@ -71,7 +71,7 @@ app.get('/credit_cards', (req, res) => {
 });
 
 app.get('/users_credit_cards', (req, res) => {
-    pool.query('SELECT * FROM transactions', (err, results) => {
+    pool.query('SELECT * FROM users_credit_cards', (err, results) => {
         if (err) {
             console.error('Error en query:', err);
             return res.status(500).json({ error: err.message });
