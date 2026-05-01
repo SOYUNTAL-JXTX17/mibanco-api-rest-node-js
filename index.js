@@ -1,3 +1,4 @@
+// RECURSOS
 const express = require('express');
 const mysql = require('mysql2');
 const app = express();
@@ -18,6 +19,7 @@ const pool = mysql.createPool({
     queueLimit: 0
 });
 
+// 1. Conectarse con la base de datos
 pool.getConnection((err, connection) => {
     if (err) {
         console.error('Error conectando a MySQL:', err);
@@ -27,6 +29,7 @@ pool.getConnection((err, connection) => {
     connection.release();
 });
 
+// 2. Obtener datos de las tablas
 app.get('/bankAccounts', (req, res) => {
     pool.query('SELECT * FROM bankAccounts', (err, results) => {
         if (err) {
@@ -67,6 +70,21 @@ app.get('/notifications', (req, res) => {
     });
 });
 
+// 3. Conexion con la libreria express para enviar los datos recibidos por la app de android studio a la base de datos
+app.use(express.json());
+
+app.post('/users', (req, res) => {
+    const { name } = req.body;
+    pool.query('INSERT INTO users (name) VALUES (?)', [name], (err, results) => {
+        if (err) {
+            console.error('Error en query:', err);
+            return res.status(500).json({ error: err.message });
+        }
+        res.json({ message: 'Usuario insertado correctamente', id: results.insertId });
+    });
+});
+
+// 4. Iniciar la API
 const PORT = 3000;
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`Servidor corriendo en puerto ${PORT} ✅`);
