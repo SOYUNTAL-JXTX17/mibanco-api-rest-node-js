@@ -84,7 +84,23 @@ app.post('/users', (req, res) => {
     });
 });
 
-// 4. Iniciar la API
+// 4. Parametros de inicio de sesión de un usuario
+app.post('/login', (req, res) => {
+    const { name, password } = req.body;
+    pool.query(
+        'SELECT * FROM users WHERE name = ? AND password = ?',
+        [name, password],
+        (err, results) => {
+            if (err) return res.status(500).json({ error: err.message });
+            if (results.length === 0) {
+                return res.status(401).json({ error: 'Credenciales incorrectas' });
+            }
+            res.json({ message: 'Login correcto', user: results[0] });
+        }
+    );
+});
+
+// 5. Iniciar la API
 const PORT = 3000;
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`Servidor corriendo en puerto ${PORT} ✅`);
