@@ -86,11 +86,18 @@ app.post('/users', (req, res) => {
 
 // 4. Parametros de inicio de sesión de un usuario
 app.post('/login', (req, res) => {
-    const { email, password } = req.body;
+    const { app_email, password } = req.body;
+    
+    console.log('Email recibido:', app_email);
+    console.log('Password recibido:', password);
+    
     pool.query(
-        'SELECT * FROM users WHERE email = ? AND password = ?',
-        [email, password],
+        'SELECT * FROM users WHERE app_email = ? AND password = ?',
+        [app_email, password],
         (err, results) => {
+            console.log('Resultados:', results);
+            console.log('Error:', err);
+            
             if (err) return res.status(500).json({ error: err.message });
             if (results.length === 0) {
                 return res.status(401).json({ error: 'Credenciales incorrectas' });
