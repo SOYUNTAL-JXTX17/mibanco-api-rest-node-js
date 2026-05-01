@@ -86,10 +86,10 @@ app.post('/users', (req, res) => {
 
 // 4. Parametros de inicio de sesión de un usuario
 app.post('/login', (req, res) => {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
     pool.query(
-        'SELECT * FROM users WHERE username = ? AND password = ?',
-        [username, password],
+        'SELECT * FROM users WHERE email = ? AND password = ?',
+        [email, password],
         (err, results) => {
             if (err) return res.status(500).json({ error: err.message });
             if (results.length === 0) {
