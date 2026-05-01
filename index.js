@@ -88,7 +88,7 @@ app.post('/users', (req, res) => {
 app.post('/login', (req, res) => {
     const { name, password } = req.body;
     pool.query(
-        'SELECT * FROM users WHERE name = ? AND password = ?',
+        'SELECT * FROM users WHERE username = ? AND password = ?',
         [name, password],
         (err, results) => {
             if (err) return res.status(500).json({ error: err.message });
