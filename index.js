@@ -60,6 +60,26 @@ app.get('/transactions', (req, res) => {
     });
 });
 
+app.get('/credit_cards', (req, res) => {
+    pool.query('SELECT * FROM transactions', (err, results) => {
+        if (err) {
+            console.error('Error en query:', err);
+            return res.status(500).json({ error: err.message });
+        }
+        res.json(results);
+    });
+});
+
+app.get('/users_credit_cards', (req, res) => {
+    pool.query('SELECT * FROM transactions', (err, results) => {
+        if (err) {
+            console.error('Error en query:', err);
+            return res.status(500).json({ error: err.message });
+        }
+        res.json(results);
+    });
+});
+
 app.get('/notifications', (req, res) => {
     pool.query('SELECT * FROM notifications', (err, results) => {
         if (err) {
